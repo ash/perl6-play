@@ -1,12 +1,9 @@
 my @promises;
 for @*ARGS -> $a {
-    my $wait = start {
-        sleep $a
-    }
-    my $print = $wait.then({
-        say $a
-    });
-    @promises.push($print);
+    @promises.push(start {
+        sleep $a;
+        say $a;
+    })
 }
 
 await(|@promises);
